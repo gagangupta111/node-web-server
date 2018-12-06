@@ -4,6 +4,8 @@ const fs = require('fs');
 
 const app = express();
 
+const port = process.env.PORT || 3000;
+
 hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engines', 'hbs');
 
@@ -28,11 +30,11 @@ hbs.registerHelper('allCapitals', (message) => {
     return message.toUpperCase();
 });
 
-app.use((req, res, next) => {
-    res.render('maintenance.hbs', {
-        pageTitle: 'Maintenance page title set!'
-    });
-});
+// app.use((req, res, next) => {
+//     res.render('maintenance.hbs', {
+//         pageTitle: 'Maintenance page title set!'
+//     });
+// });
 
 app.use(express.static(__dirname + '/public'));
 
@@ -59,6 +61,7 @@ app.get('/bad', (req, res) => {
     res.send({
         errorMessage: 'Unable to handle'
     });
-})
+});
 
-app.listen(3000);
+app.listen(port);
+console.log(`App is listening on port: ${port}`);
